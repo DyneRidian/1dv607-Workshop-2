@@ -3,10 +3,8 @@ package model;
 public abstract class Boat {
 
 	protected String type;
-	protected int ID;
-	protected int length;
+	protected String ID;
+	protected String length;
 	
 	abstract String boatType();
-	abstract int boatID();
-
 }

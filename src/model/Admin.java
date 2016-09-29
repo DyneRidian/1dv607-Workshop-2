@@ -1,9 +1,28 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Admin {
+	
+	//test
+	public static void main(String[] args) {
+		
+		Admin a = new Admin();
+		a.populate();
+		System.out.println(a.verboseList());
 
+	}
+
+	private int totalNumberOfMembers;
+	private int totalNumberOfKayaks;
+	private int totalNumberOfSailBoats;
+	private int totalNumberOfMotorSailor;
+	private int totalNumberOfOtherBoats;
+	
 	ArrayList<Member> memberStorage;
 	
 	/* this method right now is only changing the member list, but memberlist is empty
@@ -11,10 +30,62 @@ public class Admin {
 	 * the text file. but at that point maybe its just better to have no list and modify textfile directly.
 	 */
 	
-	public Admin(Member member){
+	public Admin(){
 		memberStorage = new ArrayList<>();
-		memberStorage.add(member);
 	}
+	
+	public ArrayList<Member> getMemberStorage(){
+		return memberStorage;
+	}
+	
+	public void populate(){
+		//populating "memberStorage", "totalNumberOfMembers" and "total" for each boat.
+		//substring() are used to avoid getting category names from the text files.
+
+		try {
+			//getting total number of members
+			BufferedReader br = new BufferedReader(new FileReader("bin/model/generalInformation.txt"));
+			Scanner line = new Scanner(br);
+			totalNumberOfMembers = Integer.parseInt(line.nextLine().substring(16));
+			totalNumberOfKayaks = Integer.parseInt(line.nextLine().substring(15));
+			totalNumberOfSailBoats = Integer.parseInt(line.nextLine().substring(18));
+			totalNumberOfMotorSailor = Integer.parseInt(line.nextLine().substring(20));
+			totalNumberOfOtherBoats = Integer.parseInt(line.nextLine().substring(23));
+			
+			// Iterating over text files (each member is a text file) 
+			for (int i = 0; i < getTotalNumberOfMembers(); i++) {
+
+				String path = "bin/model/" + Integer.toString(1 + i) + ".txt";
+				br = new BufferedReader(new FileReader(path));
+				ArrayList<String> list = new ArrayList<String>();
+
+				//load text file into a string
+				line = new Scanner(br);
+				while (line.hasNext()) {
+					String str = line.nextLine();
+					list.add(str);
+				}
+				// add member
+				memberStorage.add(new Member(list.get(0).substring(5), list.get(1).substring(9),
+						list.get(2).substring(15), list.get(3).substring(14)));
+				// add each boat
+					for(int j = 0; j < list.size()-4; j=j+4){
+					if(list.get(5+j).substring(5).equals("Kayak")){memberStorage.get(0+i).boatList.add(new Kayak(list.get(6+j).substring(7),list.get(7+j).substring(3)));}
+					else if(list.get(5+j).substring(5).equals("SailBoat")){memberStorage.get(0+i).boatList.add(new SailBoat(list.get(6+j).substring(7),list.get(7+j).substring(3)));}
+					else if(list.get(5+j).substring(5).equals("MotorSailor")){memberStorage.get(0+i).boatList.add(new MotorSailor(list.get(6+j).substring(7),list.get(7+j).substring(3)));}
+					else{memberStorage.get(0+i).boatList.add(new Other(list.get(6+j).substring(7),list.get(7+j).substring(3)));}
+				}
+
+			}
+			line.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int getTotalNumberOfMembers(){
+	return totalNumberOfMembers;
+}
 	
 	public void deleteMember(String memberID){
 		

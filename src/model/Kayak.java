@@ -2,19 +2,17 @@ package model;
 
 public class Kayak extends Boat {
 	
-	private int total = 0;
-	
-	public Kayak(int length){
+	public Kayak(String length, String ID){
+		this.type = "Kayak";
 		this.length = length;
+		this.ID = ID;
 	}
 
 	@Override
 	String boatType() {
-		type = "Kayak";
-		return type;
+		this.type = "Kayak";
+		return this.type;
 	}
-
-	@Override
-	int boatID() {return total++;}
-	
 }
+
+

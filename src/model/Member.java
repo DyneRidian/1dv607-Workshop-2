@@ -7,34 +7,31 @@ public class Member {
 	private String name;
 	private String memberID;
 	private String personalNumber;
-	private int numberOfBoats;
+	private String numberOfBoats;
 	 
 	ArrayList<Boat> boatList;
-	 
-	 public int getNumberOfBoats() {
+	
+	 public String getNumberOfBoats() {
 		return numberOfBoats;
 	}
 
-	public void setNumberOfBoats(int numberOfBoats) {
+	public void setNumberOfBoats(String numberOfBoats) {
 		this.numberOfBoats = numberOfBoats;
 	}
 
-	public Member(String name, String personalNumber){
+	public Member(String name,String ID, String personalNumber, String numberOfBoats){
 		 
 		this.name = name;
+		this.memberID = ID;
 		this.personalNumber = personalNumber;
-		this.memberID = generateID();
+		this.numberOfBoats = numberOfBoats;
 		
 		boatList = new ArrayList<Boat>();
 		 
 	 }
-	 
-	 private String generateID(){
 		 
 	
-		 
-		 return "Hello";
-	 }
+
 	 
 	public void addBoat(Boat boat){
 		 

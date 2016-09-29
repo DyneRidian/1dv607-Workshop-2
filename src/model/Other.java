@@ -1,16 +1,17 @@
 package model;
 
 public class Other extends Boat{
-	
-	private int total = 0;
 
+	public Other(String length, String ID){
+		this.type = "Unkown";
+		this.length = length;
+		this.ID = ID;
+	}
+	
 	@Override
 	String boatType() {
-		type = "Other type of boat";
-		return type;
+		this.type = "Other type of boat";
+		return this.type;
 	}
-
-	@Override
-	int boatID() {return total++;}
 	
 }

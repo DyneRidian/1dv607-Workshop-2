@@ -1,15 +1,17 @@
 package model;
 
 public class MotorSailor extends Boat {
-
-	private int total = 0;
-
-	@Override
-	String boatType() {
-		type = "Motor Sailor";
-		return type;
+	
+	public MotorSailor(String length, String ID){
+		this.type = "MotorSailor";
+		this.length = length;
+		this.ID = ID;
 	}
 
 	@Override
-	int boatID() {return total++;}
+	String boatType() {
+		this.type = "Motor Sailor";
+		return this.type;
+	}
+
 }
