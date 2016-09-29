@@ -1,6 +1,7 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,8 +76,10 @@ public class Admin {
 					else if(list.get(5+j).substring(5).equals("MotorSailor")){memberStorage.get(0+i).boatList.add(new MotorSailor(list.get(6+j).substring(7),list.get(7+j).substring(3)));}
 					else{memberStorage.get(0+i).boatList.add(new Other(list.get(6+j).substring(7),list.get(7+j).substring(3)));}
 				}
-
+					
+				br.close();	
 			}
+			
 			line.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,17 +87,35 @@ public class Admin {
 	}
 
 	public int getTotalNumberOfMembers(){
-	return totalNumberOfMembers;
-}
+		
+		return totalNumberOfMembers;
+	}
 	
+	/* deleteMember now deletes element from array list and deletes that member's text file
+	 * does not reduce number of members in generalInformation text file and causes the populate method to crash
+	 * as it can't find the path to the deleted member's number, needs to be looked into :/
+	 * 
+	 * Careful when using at it will delete specified memeber's text file from bin/model.
+	 */
 	public void deleteMember(String memberID){
 		
 		for(int i = 0; i < memberStorage.size(); i++){
 			
-			if(memberStorage.get(i).getMemberID() == memberID){
+			if(memberStorage.get(i).getMemberID().equals(memberID)){
 				
 				memberStorage.remove(i);
+				
 			}
+			
+		}
+		
+		String path = "bin/model/" + memberID +  ".txt";
+		
+		File file = new File(path);
+		
+		if(file.exists()){
+			
+			file.delete();
 			
 		}
 		

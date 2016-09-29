@@ -1,0 +1,5 @@
+numberOfMembers:3
+NumberOfKayaks:9000
+NumberOfSailboats:2000
+NumberOfMotorSailor:2222
+NumberOfOtherBoatTypes:55555

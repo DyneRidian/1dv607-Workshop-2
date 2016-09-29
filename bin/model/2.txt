@@ -1,0 +1,16 @@
+Name:Christofer Nguyen
+memberID:2
+personalNumber:000000-0000
+numberOfBoats:3
+------------------------
+type:Kayak
+length:11
+ID:3
+------------------------
+type:SailBoat
+length:12
+ID:4
+------------------------
+type:MotorSailor
+length:13
+ID:5

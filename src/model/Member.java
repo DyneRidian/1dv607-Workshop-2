@@ -29,10 +29,7 @@ public class Member {
 		boatList = new ArrayList<Boat>();
 		 
 	 }
-		 
 	
-
-	 
 	public void addBoat(Boat boat){
 		 
 		 boatList.add(boat);
