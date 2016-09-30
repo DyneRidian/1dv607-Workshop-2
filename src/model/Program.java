@@ -10,7 +10,7 @@ public class Program {
 
 		/* copy text file so you can replace it after using this method
 		 */
-		//a.deleteMember("1");	
+		a.deleteMember("1");	
 		
 		System.out.println(a.verboseList());
 		
