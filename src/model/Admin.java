@@ -11,15 +11,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Admin {
-	
-	//test
-	public static void main(String[] args) {
-		
-		Admin a = new Admin();
-		a.populate();
-		System.out.println(a.verboseList());
-
-	}
 
 	private int totalNumberOfMembers;
 	private int totalNumberOfKayaks;
@@ -350,7 +341,7 @@ public class Admin {
 			sb.append("Name: " + memberStorage.get(i).getName() + "\n");
 			sb.append("Member ID: " + memberStorage.get(i).getMemberID() + "\n");
 			sb.append("Number of Boats: " + memberStorage.get(i).numberOfBoats() + "\n");
-			
+			sb.append("-------------------------------------------- \n");
 
 		}
 
