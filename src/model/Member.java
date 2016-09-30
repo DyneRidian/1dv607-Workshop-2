@@ -30,19 +30,20 @@ public class Member {
 		 
 	 }
 	
-	public void addBoat(Boat boat){
-		 
-		 boatList.add(boat);
+	public void addBoat(Boat boat, String length){
+		
+		boat.length = length;
+		boat.ID = Integer.toString(boatList.size()+1);
+		
+		boatList.add(boat);
+		
+		numberOfBoats = Integer.toString(boatList.size());
 		 
 	 }
 	
-	public int numberOfBoats(){
-		return boatList.size();
+	public String numberOfBoats(){
+		return numberOfBoats;
 	}
-	
-	public ArrayList<Boat> getBoatSize() {
-        return boatList;
-    }
 
 	public String getName() {
 		return name;

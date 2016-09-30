@@ -5,12 +5,12 @@ numberOfBoats:3
 ------------------------
 type:Kayak
 length:11
-ID:3
+ID:1
 ------------------------
 type:SailBoat
 length:12
-ID:4
+ID:2
 ------------------------
 type:MotorSailor
 length:13
-ID:5
+ID:3

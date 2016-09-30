@@ -49,7 +49,7 @@ public class Admin {
 			totalNumberOfKayaks = Integer.parseInt(line.nextLine().substring(15));
 			totalNumberOfSailBoats = Integer.parseInt(line.nextLine().substring(18));
 			totalNumberOfMotorSailor = Integer.parseInt(line.nextLine().substring(20));
-			totalNumberOfOtherBoats = Integer.parseInt(line.nextLine().substring(23));
+			totalNumberOfOtherBoats = Integer.parseInt(line.nextLine().substring(21));
 			// count is the current position in the member arraylist
 			int count = 0;
 			int loopTimes = getTotalNumberOfMembers();
@@ -75,7 +75,7 @@ public class Admin {
 							list.get(2).substring(15), list.get(3).substring(14)));
 					// add each boat
 					for (int j = 0; j < list.size() - 4; j = j + 4) {
-						System.out.println(count);
+						
 						if (list.get(5 + j).substring(5).equals("Kayak")) {
 							memberStorage.get(0 + count).boatList
 									.add(new Kayak(list.get(6 + j).substring(7), list.get(7 + j).substring(3)));
@@ -105,17 +105,151 @@ public class Admin {
 		}
 	}
 
+	public void addBoat(String memberID, Boat boatType, String length) throws IOException{
+		
+		String boatID = null;
+		String newMemberBoats = null;
+		
+		for(int i = 0; i < memberStorage.size(); i++){
+			
+			if(memberStorage.get(i).getMemberID().equals(memberID)){
+				
+				memberStorage.get(i).addBoat(boatType, length);
+				boatID = Integer.toString(memberStorage.get(i).boatList.size());
+				newMemberBoats = memberStorage.get(i).getNumberOfBoats();
+				
+			}
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		String path = "bin/model/" + memberID +  ".txt";
+		
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		Scanner line = new Scanner(br);
+		
+		while(line.hasNextLine()){
+			String text = line.nextLine();
+			if(text.contains("numberOfBoats:")){
+				text = "numberOfBoats:" + newMemberBoats;
+			}
+			sb.append(text);
+			sb.append("\r\n");
+		}
+		
+		br.close();
+		line.close();
+		
+		sb.append("------------------------" + "\r\n");
+		sb.append("type:" + boatType.type + "\r\n");
+		sb.append("length:" + length + "\r\n");
+		sb.append("ID:" + boatID);
+		
+		Writer generalWriter;
+		try {
+			generalWriter = new BufferedWriter((new FileWriter(path)));
+			generalWriter.write(sb.toString());
+			generalWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if(boatType.type.equals("Kayak")){
+			
+			totalNumberOfKayaks++;
+		}
+		else if(boatType.type.equals("SailBoat")){
+			
+			totalNumberOfSailBoats++;
+		}
+		else if(boatType.type.equals("MotorSailor")){
+			
+			totalNumberOfMotorSailor++;
+		}
+		else if(boatType.type.equals("Other")){
+			
+			totalNumberOfOtherBoats++;
+		}
+		
+		sb.setLength(0);
+		sb.append("numberOfMembers:" + totalNumberOfMembers + "\r\n");
+		sb.append("numberOfKayaks:" + totalNumberOfKayaks + "\r\n");
+		sb.append("numberOfSailboats:" + totalNumberOfSailBoats + "\r\n");
+		sb.append("numberOfMotorSailor:" + totalNumberOfMotorSailor + "\r\n");
+		sb.append("numberOtherBoatTypes:" + totalNumberOfOtherBoats);
+		
+		try {
+			generalWriter = new BufferedWriter((new FileWriter("bin/model/generalInformation.txt")));
+			generalWriter.write(sb.toString());
+			generalWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void addMember(String name, String personalNumber){
+		
+		String ID = null;
+		String path = null;
+		File file = null;;
+		
+		for(int i = 1; i > 0; i++){
+			
+			path = "bin/model/" + i +  ".txt";
+			file = new File(path);		
+			if(!file.exists()){
+				ID = Integer.toString(i);
+				break;
+			}
+			
+		}
+		
+		Member newMember = new Member(name, ID, personalNumber, "0");
+		
+		memberStorage.add(newMember);
+		
+		totalNumberOfMembers++;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Name:" + name + "\r\n");
+		sb.append("memberID:" + ID + "\r\n");
+		sb.append("personalNumber:" + personalNumber + "\r\n");
+		sb.append("numberOfBoats:" + "0" + "\r\n");
+		
+		Writer memberWriter;
+		try {
+			memberWriter = new BufferedWriter((new FileWriter(path)));
+			memberWriter.write(sb.toString());
+			memberWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		sb.setLength(0);
+		sb.append("numberOfMembers:" + totalNumberOfMembers + "\r\n");
+		sb.append("numberOfKayaks:" + totalNumberOfKayaks + "\r\n");
+		sb.append("numberOfSailboats:" + totalNumberOfSailBoats + "\r\n");
+		sb.append("numberOfMotorSailor:" + totalNumberOfMotorSailor + "\r\n");
+		sb.append("numberOtherBoatTypes:" + totalNumberOfOtherBoats);
+		
+		Writer generalWriter;
+		try {
+			generalWriter = new BufferedWriter((new FileWriter("bin/model/generalInformation.txt")));
+			generalWriter.write(sb.toString());
+			generalWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public int getTotalNumberOfMembers(){
 		
 		return totalNumberOfMembers;
 	}
 	
-	/* deleteMember now deletes element from array list and deletes that member's text file
-	 * does not reduce number of members in generalInformation text file and causes the populate method to crash
-	 * as it can't find the path to the deleted member's number, needs to be looked into :/
-	 * 
-	 * Careful when using at it will delete specified memeber's text file from bin/model.
-	 */
 	public void deleteMember(String memberID){
 		
 		for(int i = 0; i < memberStorage.size(); i++){
