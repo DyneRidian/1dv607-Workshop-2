@@ -253,8 +253,6 @@ public class Admin {
 				
 				for(int j = 0; j < deletedMember.getBoatList().size(); j++){
 					
-					System.out.println(deletedMember.getBoatList().get(j));
-					
 					if(deletedMember.getBoatList().get(j).type.equals("Kayak")){
 						
 						totalNumberOfKayaks--;
