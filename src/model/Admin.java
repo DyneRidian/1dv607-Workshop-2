@@ -36,7 +36,7 @@ public class Admin {
 
 		try {
 			//getting total number of members
-			BufferedReader br = new BufferedReader(new FileReader("src/resources/generalInformation.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("bin/model/generalInformation.txt"));
 			Scanner line = new Scanner(br);
 			totalNumberOfMembers = Integer.parseInt(line.nextLine().substring(16));
 			totalNumberOfKayaks = Integer.parseInt(line.nextLine().substring(15));
@@ -49,7 +49,7 @@ public class Admin {
 			// Iterating over text files (each member is a text file) 
 			for (int i = 0; i < loopTimes; i++) {
 				
-				String path = "src/resources/" + Integer.toString(1 + i) + ".txt";
+				String path = "bin/model/" + Integer.toString(1 + i) + ".txt";
 				
 				File file = new File(path);
 				if(file.exists()){
@@ -67,7 +67,7 @@ public class Admin {
 					memberStorage.add(new Member(list.get(0).substring(5), list.get(1).substring(9),
 							list.get(2).substring(15), list.get(3).substring(14)));
 					// add each boat
-					for (int j = 0; j < list.size() - 5; j = j + 4) {
+					for (int j = 0; j < list.size() - 4; j = j + 4) {
 						
 						if (list.get(6 + j).substring(5).equals("Kayak")) {
 							memberStorage.get(0 + count).boatList
@@ -108,7 +108,7 @@ public class Admin {
 			if(memberStorage.get(i).getMemberID().equals(memberID)){
 				
 				memberStorage.get(i).addBoat(boatType, length);
-				boatID = memberStorage.get(i).getBoatList().get(memberStorage.get(i).boatList.size()-1).ID;
+				boatID = Integer.toString(memberStorage.get(i).boatList.size());
 				newMemberBoats = memberStorage.get(i).getNumberOfBoats();
 				
 			}
@@ -116,7 +116,7 @@ public class Admin {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		String path = "src/resources/" + memberID +  ".txt";
+		String path = "bin/model/" + memberID +  ".txt";
 		
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		Scanner line = new Scanner(br);
@@ -133,10 +133,10 @@ public class Admin {
 		br.close();
 		line.close();
 	
-		sb.append("ID:" + boatID + "\r\n");
+		sb.append("------------------------" + "\r\n");
+		sb.append("ID:" + boatID);
 		sb.append("type:" + boatType.type + "\r\n");
 		sb.append("length:" + length + "\r\n");
-		sb.append("------------------------" + "\r\n");
 		
 		Writer generalWriter;
 		try {
@@ -181,7 +181,7 @@ public class Admin {
 		
 		Writer generalWriter;
 		try {
-			generalWriter = new BufferedWriter((new FileWriter("src/resources/generalInformation.txt")));
+			generalWriter = new BufferedWriter((new FileWriter("bin/model/generalInformation.txt")));
 			generalWriter.write(sb.toString());
 			generalWriter.close();
 		} catch (IOException e) {
@@ -197,7 +197,7 @@ public class Admin {
 		
 		for(int i = 1; i > 0; i++){
 			
-			path = "src/resources/" + i +  ".txt";
+			path = "bin/model/" + i +  ".txt";
 			file = new File(path);		
 			if(!file.exists()){
 				ID = Integer.toString(i);
@@ -218,7 +218,6 @@ public class Admin {
 		sb.append("memberID:" + ID + "\r\n");
 		sb.append("personalNumber:" + personalNumber + "\r\n");
 		sb.append("numberOfBoats:" + "0" + "\r\n");
-		sb.append("------------------------" + "\r\n");
 		
 		Writer memberWriter;
 		try {
@@ -274,11 +273,12 @@ public class Admin {
 				}
 				
 				memberStorage.remove(i);
+				
 			}
 			
 		}
 		
-		String path = "src/resources/" + memberID +  ".txt";
+		String path = "bin/model/" + memberID +  ".txt";
 		
 		File file = new File(path);
 		
@@ -320,7 +320,7 @@ public class Admin {
 
 			sb.append("Name: " + memberStorage.get(i).getName() + "\n");
 			sb.append("Member ID: " + memberStorage.get(i).getMemberID() + "\n");
-			sb.append("Number of Boats: " + memberStorage.get(i).getNumberOfBoats() + "\n");
+			sb.append("Number of Boats: " + memberStorage.get(i).numberOfBoats() + "\n");
 			sb.append("-------------------------------------------- \n");
 
 		}
@@ -330,8 +330,6 @@ public class Admin {
 
 	public void deleteBoat(String memberID, String boatID) {
 
-		String updateBoats = null;
-		
 		for (int i = 0; i < memberStorage.size(); i++) {
 
 			if (memberStorage.get(i).getMemberID().equals(memberID)) {
@@ -345,33 +343,32 @@ public class Admin {
 						if (selectedMember.getBoatList().get(j).type.equals("Kayak")) {
 
 							totalNumberOfKayaks--;
+							break;
 
 						} else if (selectedMember.getBoatList().get(j).type.equals("MotorSailor")) {
 
 							totalNumberOfMotorSailor--;
+							break;
 
 						} else if (selectedMember.getBoatList().get(j).type.equals("SailBoat")) {
 
 							totalNumberOfSailBoats--;
+							break;
 
 						} else if (selectedMember.getBoatList().get(j).type.equals("Other")) {
 
 							totalNumberOfOtherBoats--;
+							break;
 
 						}
-						memberStorage.get(i).setNumberOfBoats(Integer.toString(Integer.parseInt(memberStorage.get(i).getNumberOfBoats())-1));
-						updateBoats = "numberOfBoats:" + memberStorage.get(i).getNumberOfBoats();
-						memberStorage.get(i).getBoatList().remove(j);
-						break;
+
 					}
-					
-					updateBoats = "numberOfBoats:" + memberStorage.get(i).getNumberOfBoats();
-					
+
 				}
-				
+
 				try {
 
-					String path = "src/resources/" + memberID + ".txt";
+					String path = "bin/model/" + memberID + ".txt";
 
 					File inFile = new File(path);
 
@@ -386,29 +383,19 @@ public class Admin {
 					PrintWriter writer = new PrintWriter (new FileWriter(tempFile));
 
 					String lineToRemove = "ID:" + boatID;
-					
 					String currentLine = null;
 
-					while((currentLine = br.readLine()) != null) {
-						
+					while ((currentLine = br.readLine()) != null) {
 						String trimmedLine = currentLine.trim();
-						
 						if (trimmedLine.startsWith(lineToRemove)) {
 							for(int k = 0; k < 3; k++){
 								br.readLine();
 							}
 							currentLine = br.readLine();
 						}
+					
+						writer.println(currentLine);	
 						
-						if(currentLine != null){
-							if(trimmedLine.startsWith("numberOfBoats:")){
-								writer.println(updateBoats);
-							}
-							else{
-								writer.println(currentLine);	
-							}
-						}
-							
 					}
 					writer.close();
 					br.close();

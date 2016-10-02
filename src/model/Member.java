@@ -33,22 +33,17 @@ public class Member {
 	public void addBoat(Boat boat, String length){
 		
 		boat.length = length;
+		boat.ID = Integer.toString(boatList.size()+1);
 		
-		if(boatList.size() != 0){
-			
-			boat.ID = Integer.toString(Integer.parseInt(boatList.get(boatList.size()-1).ID)+1);
-			
-		}
-		else{
-			
-			boat.ID = "1";
-		}
-			
 		boatList.add(boat);
 		
 		numberOfBoats = Integer.toString(boatList.size());
 		 
 	 }
+	
+	public String numberOfBoats(){
+		return numberOfBoats;
+	}
 
 	public String getName() {
 		return name;
