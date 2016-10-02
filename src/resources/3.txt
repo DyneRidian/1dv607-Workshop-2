@@ -1,7 +1,7 @@
-Name:Christofer Nguyen
-memberID:2
+Name:Jonathan Walkden
+memberID:3
 personalNumber:000000-0000
-numberOfBoats:3
+numberOfBoats:4
 ------------------------
 ID:1
 type:Kayak
@@ -13,4 +13,9 @@ length:12
 ------------------------
 ID:3
 type:MotorSailor
-length:13
+length:1300000
+------------------------
+ID:4
+type:MotorSailor
+length:20
+------------------------
