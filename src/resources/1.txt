@@ -1,0 +1,13 @@
+Name:Fredrik Jönsson
+memberID:1
+personalNumber:000000-0000
+numberOfBoats:2
+------------------------
+ID:1
+type:Kayak
+length:5
+------------------------
+ID:2
+type:SailBoat
+length:13
+------------------------

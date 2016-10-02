@@ -28,9 +28,10 @@ public class Interface {
 				System.out.println("1: Add new member");
 				System.out.println("2: Register a new boat to a member");
 				System.out.println("3: Delete a member");
-				System.out.println("4: Print a compact list of all members");
-				System.out.println("5: Print a verbose list of all members");
-				System.out.println("6: Exit program");
+				System.out.println("4: Delete a specific member's boat");
+				System.out.println("5: Print a compact list of all members");
+				System.out.println("6: Print a verbose list of all members");
+				System.out.println("7: Exit program");
 				System.out.println("-----------------------------------------------------");
 				
 				int choice = userInput.nextInt();
@@ -39,7 +40,8 @@ public class Interface {
 				
 					case 1: 
 						System.out.print("Please enter a name for the member: ");
-						String newMemberName = userInput.next();
+						userInput.nextLine();
+						String newMemberName = userInput.nextLine();
 						System.out.print("\nPlease enter the member's Personal Number: ");
 						String newMemberPersonalNumber = userInput.next();
 						a.addMember(newMemberName, newMemberPersonalNumber);
@@ -82,15 +84,23 @@ public class Interface {
 						System.out.println("\nMember has been deleted");
 						break;	
 					
-					case 4: 
+					case 4:
+						System.out.print("Please enter the ID of the member whose boat you wish to delete: ");
+						String deleteBoatMemberID = userInput.next();
+						System.out.print("Please enter the ID of the boat you wish to delete: ");
+						String deleteBoatID = userInput.next();
+						a.deleteBoat(deleteBoatMemberID, deleteBoatID);
+						break;
+						
+					case 5: 
 						System.out.println("\n" + a.compactList());
 						break;
 							
-					case 5: 
+					case 6: 
 						System.out.println("\n" + a.verboseList());
 						break;	
 						
-					case 6: 
+					case 7: 
 						break start;
 							
 					default:
