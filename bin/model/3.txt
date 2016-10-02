@@ -18,4 +18,3 @@ length:1300000
 ID:4
 type:MotorSailor
 length:20
-------------------------

@@ -1,12 +1,16 @@
-Name:Fredrik Jönsson
-memberID:1
+Name:Christofer Nguyen
+memberID:2
 personalNumber:000000-0000
-numberOfBoats:2
+numberOfBoats:3
 ------------------------
 ID:1
 type:Kayak
-length:120
+length:11
 ------------------------
 ID:2
 type:SailBoat
+length:12
+------------------------
+ID:3
+type:MotorSailor
 length:13

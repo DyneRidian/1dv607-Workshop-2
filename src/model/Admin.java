@@ -327,6 +327,80 @@ public class Admin {
 
 		return sb.toString();
 	}
+	
+	public void changeBoat(String memberID, String boatID, String length) {
+
+		for (int i = 0; i < memberStorage.size(); i++) {
+
+			if (memberStorage.get(i).getMemberID().equals(memberID)) {
+
+				Member selectedMember = memberStorage.get(i);
+
+				for (int j = 0; j < selectedMember.getBoatList().size(); j++){
+					
+					if (selectedMember.getBoatList().get(j).ID.equals(boatID)){
+						
+						selectedMember.getBoatList().get(j).length = length;
+						
+					}
+					
+				}
+				
+			}
+			try {
+
+				String path = "src/resources/" + memberID + ".txt";
+
+				File inFile = new File(path);
+
+				if (!inFile.isFile()) {
+					System.out.println("Parameter is not an existing file");
+					return;
+				}
+
+				File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+				BufferedReader br = new BufferedReader(new FileReader(path));
+				PrintWriter writer = new PrintWriter (new FileWriter(tempFile));
+
+				String selectedLine = "ID:" + boatID;
+				String currentLine = null;
+
+				while ((currentLine = br.readLine()) != null) {
+					String trimmedLine = currentLine.trim();
+					if (trimmedLine.startsWith(selectedLine)) {
+						for(int k = 0; k < 2; k++){
+							writer.println(currentLine);
+							currentLine = br.readLine();
+						}
+						currentLine = "length:" + length;
+					}
+				
+					writer.println(currentLine);	
+					
+				}
+				writer.close();
+				br.close();
+
+				// Delete the original file
+				if (!inFile.delete()) {
+					System.out.println("Could not delete file");
+					return;
+				}
+
+				// Rename the new file to the filename the original file had.
+				if (!tempFile.renameTo(inFile))
+					System.out.println("Could not rename file");
+
+			} catch (FileNotFoundException ex) {
+				ex.printStackTrace();
+			}
+
+			catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 
 	public void deleteBoat(String memberID, String boatID) {
 
