@@ -3,9 +3,11 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -67,18 +69,18 @@ public class Admin {
 					// add each boat
 					for (int j = 0; j < list.size() - 4; j = j + 4) {
 						
-						if (list.get(5 + j).substring(5).equals("Kayak")) {
+						if (list.get(6 + j).substring(5).equals("Kayak")) {
 							memberStorage.get(0 + count).boatList
-									.add(new Kayak(list.get(6 + j).substring(7), list.get(7 + j).substring(3)));
-						} else if (list.get(5 + j).substring(5).equals("SailBoat")) {
+									.add(new Kayak(list.get(7 + j).substring(7), list.get(5 + j).substring(3)));
+						} else if (list.get(6 + j).substring(5).equals("SailBoat")) {
 							memberStorage.get(0 + count).boatList
-									.add(new SailBoat(list.get(6 + j).substring(7), list.get(7 + j).substring(3)));
-						} else if (list.get(5 + j).substring(5).equals("MotorSailor")) {
+									.add(new SailBoat(list.get(7 + j).substring(7), list.get(5 + j).substring(3)));
+						} else if (list.get(6 + j).substring(5).equals("MotorSailor")) {
 							memberStorage.get(0 + count).boatList
-									.add(new MotorSailor(list.get(6 + j).substring(7), list.get(7 + j).substring(3)));
+									.add(new MotorSailor(list.get(7 + j).substring(7), list.get(5 + j).substring(3)));
 						} else {
 							memberStorage.get(0 + count).boatList
-									.add(new Other(list.get(6 + j).substring(7), list.get(7 + j).substring(3)));
+									.add(new Other(list.get(7 + j).substring(7), list.get(5 + j).substring(3)));
 						}
 					}
 					count++;
@@ -130,11 +132,11 @@ public class Admin {
 		
 		br.close();
 		line.close();
-		
+	
 		sb.append("------------------------" + "\r\n");
+		sb.append("ID:" + boatID);
 		sb.append("type:" + boatType.type + "\r\n");
 		sb.append("length:" + length + "\r\n");
-		sb.append("ID:" + boatID);
 		
 		Writer generalWriter;
 		try {
@@ -162,6 +164,13 @@ public class Admin {
 			totalNumberOfOtherBoats++;
 		}
 		
+		generalUpdate();
+		
+	}
+	
+	private void generalUpdate(){
+		StringBuilder sb = new StringBuilder();
+		
 		sb.setLength(0);
 		sb.append("numberOfMembers:" + totalNumberOfMembers + "\r\n");
 		sb.append("numberOfKayaks:" + totalNumberOfKayaks + "\r\n");
@@ -169,6 +178,8 @@ public class Admin {
 		sb.append("numberOfMotorSailor:" + totalNumberOfMotorSailor + "\r\n");
 		sb.append("numberOtherBoatTypes:" + totalNumberOfOtherBoats);
 		
+		
+		Writer generalWriter;
 		try {
 			generalWriter = new BufferedWriter((new FileWriter("bin/model/generalInformation.txt")));
 			generalWriter.write(sb.toString());
@@ -176,7 +187,6 @@ public class Admin {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void addMember(String name, String personalNumber){
@@ -218,21 +228,7 @@ public class Admin {
 			e.printStackTrace();
 		}
 		
-		sb.setLength(0);
-		sb.append("numberOfMembers:" + totalNumberOfMembers + "\r\n");
-		sb.append("numberOfKayaks:" + totalNumberOfKayaks + "\r\n");
-		sb.append("numberOfSailboats:" + totalNumberOfSailBoats + "\r\n");
-		sb.append("numberOfMotorSailor:" + totalNumberOfMotorSailor + "\r\n");
-		sb.append("numberOtherBoatTypes:" + totalNumberOfOtherBoats);
-		
-		Writer generalWriter;
-		try {
-			generalWriter = new BufferedWriter((new FileWriter("bin/model/generalInformation.txt")));
-			generalWriter.write(sb.toString());
-			generalWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		generalUpdate();
 		
 	}
 	
@@ -292,21 +288,7 @@ public class Admin {
 			
 		}
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append("numberOfMembers:" + totalNumberOfMembers + "\r\n");
-		sb.append("numberOfKayaks:" + totalNumberOfKayaks + "\r\n");
-		sb.append("numberOfSailboats:" + totalNumberOfSailBoats + "\r\n");
-		sb.append("numberOfMotorSailor:" + totalNumberOfMotorSailor + "\r\n");
-		sb.append("numberOtherBoatTypes:" + totalNumberOfOtherBoats);
-		
-		Writer writer;
-		try {
-			writer = new BufferedWriter((new FileWriter("bin/model/generalInformation.txt")));
-			writer.write(sb.toString());
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		generalUpdate();
 		
 	}
 	
@@ -327,15 +309,15 @@ public class Admin {
 			sb.append("-------------------------------------------- \n");
 
 		}
-		
-		return sb.toString();	
+
+		return sb.toString();
 	}
 
-	public String compactList(){
+	public String compactList() {
 
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < memberStorage.size(); i++){
-			
+		for (int i = 0; i < memberStorage.size(); i++) {
+
 			sb.append("Name: " + memberStorage.get(i).getName() + "\n");
 			sb.append("Member ID: " + memberStorage.get(i).getMemberID() + "\n");
 			sb.append("Number of Boats: " + memberStorage.get(i).numberOfBoats() + "\n");
@@ -343,6 +325,104 @@ public class Admin {
 
 		}
 
-		return sb.toString();		
+		return sb.toString();
+	}
+
+	public void deleteBoat(String memberID, String boatID) {
+
+		for (int i = 0; i < memberStorage.size(); i++) {
+
+			if (memberStorage.get(i).getMemberID().equals(memberID)) {
+
+				Member selectedMember = memberStorage.get(i);
+
+				for (int j = 0; j < selectedMember.getBoatList().size(); j++) {
+
+					if (selectedMember.getBoatList().get(j).ID.equals(boatID)) {
+
+						if (selectedMember.getBoatList().get(j).type.equals("Kayak")) {
+
+							totalNumberOfKayaks--;
+							break;
+
+						} else if (selectedMember.getBoatList().get(j).type.equals("MotorSailor")) {
+
+							totalNumberOfMotorSailor--;
+							break;
+
+						} else if (selectedMember.getBoatList().get(j).type.equals("SailBoat")) {
+
+							totalNumberOfSailBoats--;
+							break;
+
+						} else if (selectedMember.getBoatList().get(j).type.equals("Other")) {
+
+							totalNumberOfOtherBoats--;
+							break;
+
+						}
+
+					}
+
+				}
+
+				try {
+
+					String path = "bin/model/" + memberID + ".txt";
+
+					File inFile = new File(path);
+
+					if (!inFile.isFile()) {
+						System.out.println("Parameter is not an existing file");
+						return;
+					}
+
+					File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+					BufferedReader br = new BufferedReader(new FileReader(path));
+					PrintWriter writer = new PrintWriter (new FileWriter(tempFile));
+
+					String lineToRemove = "ID:" + boatID;
+					String currentLine = null;
+
+					while ((currentLine = br.readLine()) != null) {
+						String trimmedLine = currentLine.trim();
+						if (trimmedLine.startsWith(lineToRemove)) {
+							for(int k = 0; k < 3; k++){
+								br.readLine();
+							}
+							currentLine = br.readLine();
+						}
+					
+						writer.println(currentLine);	
+						
+					}
+					writer.close();
+					br.close();
+					
+					generalUpdate();
+
+					// Delete the original file
+					if (!inFile.delete()) {
+						System.out.println("Could not delete file");
+						return;
+					}
+
+					// Rename the new file to the filename the original file had.
+					if (!tempFile.renameTo(inFile))
+						System.out.println("Could not rename file");
+
+				} catch (FileNotFoundException ex) {
+					ex.printStackTrace();
+				}
+
+				catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+
+		}
+
 	}
 }
+

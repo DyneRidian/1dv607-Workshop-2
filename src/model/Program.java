@@ -9,5 +9,6 @@ public class Program {
 		Admin a = new Admin();
 		a.populate();
 		
+		a.deleteBoat("1", "1");
 	}
 }

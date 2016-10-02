@@ -1,5 +1,5 @@
 numberOfMembers:3
-numberOfKayaks:3
+numberOfKayaks:2
 numberOfSailboats:3
 numberOfMotorSailor:3
 numberOtherBoatTypes:0
