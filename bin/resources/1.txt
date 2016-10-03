@@ -5,8 +5,9 @@ numberOfBoats:2
 ------------------------
 ID:1
 type:Kayak
-length:120
+length:11
 ------------------------
 ID:2
 type:SailBoat
 length:13
+------------------------

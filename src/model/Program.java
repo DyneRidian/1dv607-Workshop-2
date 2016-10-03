@@ -4,12 +4,14 @@ import java.io.IOException;
 
 public class Program {
 
-	public static void main(String[] args) throws IOException {
+/*	public static void main(String[] args) throws IOException {
 
 		Admin a = new Admin();
 		a.populate();
 		
-		a.changeBoat("1", "1", "120");
+		a.changeBoat("1", "1", "11");
+		
+		System.out.println(a.verboseList());
 		
 		//a.addBoat("1", new Kayak(null,null), "5");
 		
@@ -19,4 +21,5 @@ public class Program {
 		//System.out.println(a.getMemberStorage().get(0).getBoatList().get(1).boatType());
 		
 	}
+*/
 }
