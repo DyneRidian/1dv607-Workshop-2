@@ -36,7 +36,7 @@ public class Admin {
 
 		try {
 			//getting total number of members
-			BufferedReader br = new BufferedReader(new FileReader("src/resources/generalInformation.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("resources/generalInformation.txt"));
 			Scanner line = new Scanner(br);
 			totalNumberOfMembers = Integer.parseInt(line.nextLine().substring(16));
 			totalNumberOfKayaks = Integer.parseInt(line.nextLine().substring(15));
@@ -49,7 +49,7 @@ public class Admin {
 			// Iterating over text files (each member is a text file) 
 			for (int i = 0; i < loopTimes; i++) {
 				
-				String path = "src/resources/" + Integer.toString(1 + i) + ".txt";
+				String path = "resources/" + Integer.toString(1 + i) + ".txt";
 				
 				File file = new File(path);
 				if(file.exists()){
@@ -116,7 +116,7 @@ public class Admin {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		String path = "src/resources/" + memberID +  ".txt";
+		String path = "/resources/" + memberID +  ".txt";
 		
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		Scanner line = new Scanner(br);
@@ -197,7 +197,7 @@ public class Admin {
 		
 		for(int i = 1; i > 0; i++){
 			
-			path = "src/resources/" + i +  ".txt";
+			path = "/resources/" + i +  ".txt";
 			file = new File(path);		
 			if(!file.exists()){
 				ID = Integer.toString(i);
@@ -278,7 +278,7 @@ public class Admin {
 			
 		}
 		
-		String path = "src/resources/" + memberID +  ".txt";
+		String path = "/resources/" + memberID +  ".txt";
 		
 		File file = new File(path);
 		
@@ -349,7 +349,7 @@ public class Admin {
 			}
 			try {
 
-				String path = "src/resources/" + memberID + ".txt";
+				String path = "/resources/" + memberID + ".txt";
 
 				File inFile = new File(path);
 
@@ -445,7 +445,7 @@ public class Admin {
 				
 				try {
 
-					String path = "src/resources/" + memberID + ".txt";
+					String path = "/resources/" + memberID + ".txt";
 
 					File inFile = new File(path);
 
