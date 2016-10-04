@@ -2,14 +2,11 @@ package controller;
 
 import java.io.IOException;
 
-import view.Interface;
-
 public class User {
 
-	public boolean memberDisplay() throws IOException{
-		Interface v = new Interface();
+	public boolean memberDisplay(view.Interface v_view) throws IOException{
 		
-		v.presentInstruction();
+		v_view.presentInstruction();
 		
 		return true;
 	}	
