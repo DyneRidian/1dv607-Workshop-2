@@ -10,6 +10,7 @@ public class Other extends Boat{
 	
 	@Override
 	String boatType() {
+		
 		return this.type;
 	}
 	
