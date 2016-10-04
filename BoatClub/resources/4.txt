@@ -1,0 +1,5 @@
+Name:fredrik
+memberID:4
+personalNumber:123
+numberOfBoats:0
+------------------------
