@@ -116,7 +116,7 @@ public class Admin {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		String path = "/resources/" + memberID +  ".txt";
+		String path = "resources/" + memberID +  ".txt";
 		
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		Scanner line = new Scanner(br);
@@ -197,7 +197,7 @@ public class Admin {
 		
 		for(int i = 1; i > 0; i++){
 			
-			path = "/resources/" + i +  ".txt";
+			path = "resources/" + i +  ".txt";
 			file = new File(path);		
 			if(!file.exists()){
 				ID = Integer.toString(i);
@@ -278,7 +278,7 @@ public class Admin {
 			
 		}
 		
-		String path = "/resources/" + memberID +  ".txt";
+		String path = "resources/" + memberID +  ".txt";
 		
 		File file = new File(path);
 		
@@ -349,7 +349,7 @@ public class Admin {
 			}
 			try {
 
-				String path = "/resources/" + memberID + ".txt";
+				String path = "resources/" + memberID + ".txt";
 
 				File inFile = new File(path);
 
@@ -445,7 +445,7 @@ public class Admin {
 				
 				try {
 
-					String path = "/resources/" + memberID + ".txt";
+					String path = "resources/" + memberID + ".txt";
 
 					File inFile = new File(path);
 
