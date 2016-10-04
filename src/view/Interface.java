@@ -1,4 +1,4 @@
-package interfaces;
+package view;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ import model.SailBoat;
 
 public class Interface {
 
-	public static void main(String[] args) throws IOException {
+	public void presentInstruction() throws IOException {
 		
 		Admin a = new Admin();
 		a.populate();
@@ -124,7 +124,6 @@ public class Interface {
 			}
 		
 		userInput.close();
-		
 	}
 
 }
