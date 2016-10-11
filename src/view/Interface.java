@@ -32,44 +32,44 @@ public class Interface {
 	public void collectEvents(int input) {
 		choice = input;
 	}
+	
+	public void succesful(model.Admin a) {
+
+		if (choice == 1) {
+
+			System.out.println("New member added! The ID for this member is: "
+					+ a.getMemberStorage().get(a.getMemberStorage().size() - 1).getMemberID());
+
+		} else if (choice == 2) {
+
+			System.out.println("Registered!");
+
+		} else if (choice == 3) {
+
+			System.out.println("Member has been deleted");
+
+		} else if (choice == 4) {
+
+			System.out.println("Boat deleted!");
+
+		} else if (choice == 5) {
+
+			System.out.println("Boat Changed!");
+
+		}
+	}
 
 	public boolean addMember() throws IOException {
 
 		if (choice == 1) {
 
 			System.out.println("Please enter a name for the member: ");
-			System.out.println("Please enter the member's Personal Number: ");
 
 			return true;
 
 		}
-		return false;
-	}
 
-	public void succesful(model.Admin a) {
-		
-		if(choice == 1){
-		
-			System.out.println("New member added! The ID for this member is: "
-					+ a.getMemberStorage().get(a.getMemberStorage().size() - 1).getMemberID());
-			
-		}else if(choice == 2){
-			
-			System.out.println("Registered!");
-			
-		}else if(choice == 3){
-			
-			System.out.println("Member has been deleted");
-			
-		}else if(choice == 4){
-			
-			System.out.println("Boat deleted!");
-			
-		}else if(choice == 5){
-			
-			System.out.println("Boat Changed!");
-			
-		}
+		return false;
 	}
 
 	public boolean addBoat() {
@@ -84,7 +84,7 @@ public class Interface {
 		return false;
 	}
 
-	public void addBoatType() throws IOException {
+	public void addBoatType() {
 
 		System.out.println("Enter a number that corresponds to the boat you wish to register: ");
 
@@ -92,8 +92,7 @@ public class Interface {
 		System.out.println("2: Sail Boat");
 		System.out.println("3: Motor Sailor");
 		System.out.println("4: Other (not listed)");
-	
-		System.out.println("Please enter the length of the boat: ");
+
 	}
 
 	public boolean deleteMember() {
@@ -112,8 +111,8 @@ public class Interface {
 	public boolean deleteMemberBoat() {
 
 		if (choice == 4) {
+
 			System.out.println("Please enter the ID of the member whose boat you wish to delete: ");
-			System.out.println("Please enter the ID of the boat you wish to delete: ");
 
 			return true;
 
@@ -122,18 +121,16 @@ public class Interface {
 		return false;
 
 	}
-
+	
 	public boolean changeBoatInfo() {
 
 		if (choice == 5) {
 
 			System.out.println("Please enter the ID of the member whose boat you wish to change: ");
-			System.out.println("Please enter the ID of the boat you wish to change: ");
-			System.out.println("Please enter the new length for the boat: ");
 
 			return true;
 		}
-
+		
 		return false;
 
 	}
@@ -181,4 +178,32 @@ public class Interface {
 		}
 
 	}
+
+	public void boatLength() {
+
+		if (choice == 2 || choice == 5) {
+
+			System.out.println("Please enter the length of the boat: ");
+			
+		}
+	}
+	
+	public void ID(){
+		
+		if(choice == 1){
+			
+			System.out.println("Please enter the member's Personal Number: ");
+			
+		} else if(choice == 4){
+			
+			System.out.println("Please enter the ID of the boat you wish to delete: ");
+			
+		} else if(choice == 5){
+			
+			System.out.println("Please enter the ID of the boat you wish to change: ");
+			
+		}
+		
+	}
+	
 }

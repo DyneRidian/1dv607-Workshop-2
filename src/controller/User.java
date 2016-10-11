@@ -21,6 +21,7 @@ public class User {
 
 			if (v_view.addMember()) {
 				String newMemberName = input();
+				v_view.ID();
 				String newMemberPersonalNumber = input();
 				a.addMember(newMemberName, newMemberPersonalNumber);
 
@@ -30,6 +31,7 @@ public class User {
 				String boatRegisterID = input();
 				v_view.addBoatType();
 				getInput();
+				v_view.boatLength();
 				String boatRegisterLength = input();
 
 				if (choice == 1) {
@@ -59,6 +61,7 @@ public class User {
 
 			} else if (v_view.deleteMemberBoat()) {
 				String deleteBoatMemberID = input();
+				v_view.ID();
 				String deleteBoatID = input();
 
 				a.deleteBoat(deleteBoatMemberID, deleteBoatID);
@@ -66,7 +69,9 @@ public class User {
 
 			} else if (v_view.changeBoatInfo()) {
 				String changeBoatMemberID = input();
+				v_view.ID();
 				String changeBoatID = input();
+				v_view.boatLength();
 				String changeBoatNewLength = input();
 
 				a.changeBoat(changeBoatMemberID, changeBoatID, changeBoatNewLength);
