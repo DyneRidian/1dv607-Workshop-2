@@ -12,6 +12,7 @@ public class User {
 
 	private Scanner userInput;
 	private int choice;
+	private String answer;
 
 	public boolean memberDisplay(view.Interface v_view, model.Admin a) throws IOException {
 		while (v_view.exit() != true) {
@@ -88,7 +89,7 @@ public class User {
 			}
 		}
 		close();
-		return false;
+		return true;
 	}
 
 	public void close() {
@@ -98,9 +99,9 @@ public class User {
 	public String input() {
 		userInput = new Scanner(System.in);
 		
-		if(userInput.hasNextLine()){
+		if(userInput.hasNext()){
 		
-			String answer = userInput.nextLine();
+			answer = userInput.nextLine();
 			return answer;
 			
 		}
