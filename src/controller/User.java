@@ -98,7 +98,7 @@ public class User {
 				v_view.ID();
 				String deleteBoatID = input();
 				
-				//checking if there is a member with the ID
+				//checking if there is a member and boat with the ID
 				boolean IDFound = false;
 				boolean BoatIDFound = false;
 			
@@ -133,7 +133,7 @@ public class User {
 				v_view.boatLength();
 				String changeBoatNewLength = input();
 				
-				//checking if there is a member with the ID
+				//checking if there is a member and boat with the ID
 				boolean IDFound = false;
 				boolean BoatIDFound = false;
 				for(int i=0;i < admin.getMemberStorage().size();i++ )
