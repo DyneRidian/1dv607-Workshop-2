@@ -42,21 +42,92 @@ public class Interface {
 
 		} else if (choice == 2) {
 
-			System.out.println("Registered!");
+			System.out.println("\n Registered!");
 
 		} else if (choice == 3) {
 
-			System.out.println("Member has been deleted");
+			System.out.println("\n Member has been deleted");
 
 		} else if (choice == 4) {
 
-			System.out.println("Boat deleted!");
+			System.out.println("\n Boat deleted!");
 
 		} else if (choice == 5) {
 
-			System.out.println("Boat Changed!");
+			System.out.println("\n Boat Changed!");
 
 		}
+	}
+	public void errorFormat(model.Admin a) {
+		
+		if (choice == 1) {
+			
+			System.out.println();
+			System.out.println("\n *The new member could not be added.*" );
+			System.out.println("*Only NUMBERS are allowed in personal numbers!*");
+
+		} else if (choice == 2) {
+
+			System.out.println();
+			System.out.println("\n *The new boat could not be registered.*");
+			System.out.println("*Only NUMBERS are allowed in boat length!*");
+
+		} else if (choice == 5) {
+
+			System.out.println();
+			System.out.println("\n *The boat data could not be changed*");
+			System.out.println("*Only NUMBERS are allowed in boat length!*");
+
+		}
+	}
+		//errors for Member id
+		public void errorMemberIdNotFound(model.Admin a) {
+			
+			if (choice == 2) {
+
+				System.out.println();
+				System.out.println("\n *The new boat could not be registered.*");
+				System.out.println("*Could not find any members with that ID!*");
+			}
+				
+				else if (choice == 3) {
+
+					System.out.println();
+					System.out.println("\n *The member could not be deleted.*");
+					System.out.println("*Could not find any member with that ID!*");
+
+				} else if (choice == 4) {
+
+					System.out.println();
+					System.out.println("\n *The boat could not be deleted.*");
+					System.out.println("*Could not find any member with that ID!*");
+
+				}
+
+			 else if (choice == 5) {
+				System.out.println();
+				System.out.println("\n *The boat data could not be changed.*");
+				System.out.println("*Could not find any member with that ID!*");
+
+			}
+		}
+			//errors for Boat id
+			public void errorBoatIdNotFound(model.Admin a) {
+				
+				 if (choice == 4) {
+
+					System.out.println();
+					System.out.println("\n *The boat could not be deleted.*");
+					System.out.println("*Could not find any boat with that ID!*");
+
+				}else if (choice == 5) {
+
+					System.out.println();
+					System.out.println("\n *The boat data could not be changed*");
+					System.out.println("*Could not find any boat with that ID!*");
+
+				}
+		
 	}
 
 	public boolean addMember() throws IOException {
@@ -183,7 +254,7 @@ public class Interface {
 
 		if (choice == 2 || choice == 5) {
 
-			System.out.println("Please enter the length of the boat: ");
+			System.out.println("Please enter the length of the boat in meters: ");
 			
 		}
 	}

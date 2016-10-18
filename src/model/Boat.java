@@ -7,4 +7,8 @@ public abstract class Boat {
 	protected String length;
 	
 	abstract String boatType();
+	
+	public String getID(){
+		return ID;
+	}
 }

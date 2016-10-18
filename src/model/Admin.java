@@ -165,7 +165,33 @@ public class Admin {
 		}
 		
 		generalUpdate();
+	}
+	//help method for addBoat()
+	public void helpAddBoat(String boatRegisterID, int choice, String boatRegisterLength){
 		
+		try {
+		if (choice == 1) {
+			
+				addBoat(boatRegisterID, new Kayak(null, null), boatRegisterLength);
+			} 
+
+		 else if (choice == 2) {
+
+			addBoat(boatRegisterID, new SailBoat(null, null), boatRegisterLength);
+
+		} else if (choice == 3) {
+
+			addBoat(boatRegisterID, new MotorSailor(null, null), boatRegisterLength);
+
+		} else {
+
+			addBoat(boatRegisterID, new Other(null, null), boatRegisterLength);
+		}
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	
 	}
 	
 	private void generalUpdate(){
