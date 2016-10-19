@@ -1,9 +1,0 @@
-title Compact List
-
-Program -> "controller::User": memberDisplay()
-"controller::User" -> "view::Interface:v_view": presentInstruction()
-"view::Interface:v_view" -> "model::Admin": compactList()
-"model::Admin" -> "model::Member": getName()
-"model::Admin" -> "model::Member": getMemberID()
-"model::Admin" -> "model::Boat": getNumberOfBoats()
-
