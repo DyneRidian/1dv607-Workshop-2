@@ -2,8 +2,6 @@ package view;
 
 import java.io.IOException;
 
-// Couldn't call the package interface so had to add an 's' to the end >.<
-
 public class Interface {
 
 	private int choice;

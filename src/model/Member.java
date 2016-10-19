@@ -11,14 +11,20 @@ public class Member {
 	 
 	ArrayList<Boat> boatList;
 	
+	// method for getting the number of boats that the member has registered
 	 public String getNumberOfBoats() {
 		return numberOfBoats;
 	}
-
+	
+	// method that sets number of boats equal to parameter
 	public void setNumberOfBoats(String numberOfBoats) {
 		this.numberOfBoats = numberOfBoats;
 	}
 
+	/* method for creating a new member, must have input parameters which correspond to the variable names.
+	 * Method will be called in admin when the program is ran, it will populate the member array in admin with the information
+	 * read from the text files that contain all the members and their information
+	 */
 	public Member(String name,String ID, String personalNumber, String numberOfBoats){
 		 
 		this.name = name;
@@ -30,6 +36,8 @@ public class Member {
 		 
 	 }
 	
+	/* method which adds a boat to the member's boatlist(array which contains that user's boats), 
+		will assign an ID that is not in use to the newly added boat */
 	public void addBoat(Boat boat, String length){
 		
 		boat.length = length;

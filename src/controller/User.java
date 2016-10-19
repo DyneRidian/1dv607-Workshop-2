@@ -4,11 +4,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import model.Kayak;
-import model.MotorSailor;
-import model.Other;
-import model.SailBoat;
-
 public class User {
 
 	private Scanner userInput;
