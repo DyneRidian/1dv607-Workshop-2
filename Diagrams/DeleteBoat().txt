@@ -1,8 +1,0 @@
-title Delete boat
-
-Program -> "controller::User": memberDisplay()
-"controller::User" -> "view::Interface:v_view": presentInstruction()
-"view::Interface:v_view" -> "model::Admin": deleteBoat(User input)
-"model::Admin" -> "model::Member": selectedMember = getMemberID()
-"model::Admin" -> "model::Boat": getBoatList()
-"model::Admin" -> "model::Admin": generalUpdate()
