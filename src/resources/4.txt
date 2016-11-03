@@ -1,0 +1,5 @@
+Name:ohny
+memberID:4
+personalNumber:920804
+numberOfBoats:0
+------------------------

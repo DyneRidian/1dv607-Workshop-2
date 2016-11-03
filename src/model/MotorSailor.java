@@ -9,7 +9,7 @@ public class MotorSailor extends Boat {
 	}
 
 	@Override
-	String boatType() {
+	public String boatType() {
 		return this.type;
 	}
 
