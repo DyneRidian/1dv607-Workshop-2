@@ -2,8 +2,6 @@ package view;
 
 import java.io.IOException;
 
-// Couldn't call the package interface so had to add an 's' to the end >.<
-
 public class Interface {
 
 	private int choice;
@@ -42,21 +40,92 @@ public class Interface {
 
 		} else if (choice == 2) {
 
-			System.out.println("Registered!");
+			System.out.println("\n Registered!");
 
 		} else if (choice == 3) {
 
-			System.out.println("Member has been deleted");
+			System.out.println("\n Member has been deleted");
 
 		} else if (choice == 4) {
 
-			System.out.println("Boat deleted!");
+			System.out.println("\n Boat deleted!");
 
 		} else if (choice == 5) {
 
-			System.out.println("Boat Changed!");
+			System.out.println("\n Boat Changed!");
 
 		}
+	}
+	public void errorFormat(model.Admin a) {
+		
+		if (choice == 1) {
+			
+			System.out.println();
+			System.out.println("\n *The new member could not be added.*" );
+			System.out.println("*Only NUMBERS are allowed in personal numbers!*");
+
+		} else if (choice == 2) {
+
+			System.out.println();
+			System.out.println("\n *The new boat could not be registered.*");
+			System.out.println("*Only NUMBERS are allowed in boat length!*");
+
+		} else if (choice == 5) {
+
+			System.out.println();
+			System.out.println("\n *The boat data could not be changed*");
+			System.out.println("*Only NUMBERS are allowed in boat length!*");
+
+		}
+	}
+		//errors for Member id
+		public void errorMemberIdNotFound(model.Admin a) {
+			
+			if (choice == 2) {
+
+				System.out.println();
+				System.out.println("\n *The new boat could not be registered.*");
+				System.out.println("*Could not find any members with that ID!*");
+			}
+				
+				else if (choice == 3) {
+
+					System.out.println();
+					System.out.println("\n *The member could not be deleted.*");
+					System.out.println("*Could not find any member with that ID!*");
+
+				} else if (choice == 4) {
+
+					System.out.println();
+					System.out.println("\n *The boat could not be deleted.*");
+					System.out.println("*Could not find any member with that ID!*");
+
+				}
+
+			 else if (choice == 5) {
+				System.out.println();
+				System.out.println("\n *The boat data could not be changed.*");
+				System.out.println("*Could not find any member with that ID!*");
+
+			}
+		}
+			//errors for Boat id
+			public void errorBoatIdNotFound(model.Admin a) {
+				
+				 if (choice == 4) {
+
+					System.out.println();
+					System.out.println("\n *The boat could not be deleted.*");
+					System.out.println("*Could not find any boat with that ID!*");
+
+				}else if (choice == 5) {
+
+					System.out.println();
+					System.out.println("\n *The boat data could not be changed*");
+					System.out.println("*Could not find any boat with that ID!*");
+
+				}
+		
 	}
 
 	public boolean addMember() throws IOException {
@@ -139,7 +208,7 @@ public class Interface {
 
 		if (choice == 6) {
 
-			System.out.println("\n" + compactList(a));
+			System.out.println("\n" + a.compactList());
 			return true;
 
 		}
@@ -147,53 +216,16 @@ public class Interface {
 		return false;
 	}
 
-	private String compactList(model.Admin a) {
-
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < a.getMemberStorage().size(); i++) {
-
-			sb.append("Name: " + a.getMemberStorage().get(i).getName() + "\n");
-			sb.append("Member ID: " + a.getMemberStorage().get(i).getMemberID() + "\n");
-			sb.append("Number of Boats: " + a.getMemberStorage().get(i).getNumberOfBoats() + "\n");
-			sb.append("-------------------------------------------- \n");
-
-		}
-
-		return sb.toString();
-	}
-	
 	public boolean printVerboseList(model.Admin a) {
 
 		if (choice == 7) {
 
-			System.out.println("\n" + verboseList(a));
+			System.out.println("\n" + a.verboseList());
 			return true;
 		}
 
 		return false;
 	}
-	
-	private String verboseList(model.Admin a){
-		
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < a.getMemberStorage().size(); i++){
-			
-			sb.append("Name: " + a.getMemberStorage().get(i).getName() + "\n");
-			sb.append("Personal Number: " + a.getMemberStorage().get(i).getPersonalNumber() + "\n");
-			sb.append("Member ID: " + a.getMemberStorage().get(i).getMemberID() + "\n");
-			for(int j = 0; j < a.getMemberStorage().get(i).getBoatList().size(); j++){
-				
-				sb.append("Boat Type: " + a.getMemberStorage().get(i).getBoatList().get(j).boatType() + "\n");
-				sb.append("Boat Length: " + a.getMemberStorage().get(i).getBoatList().get(j).length + "\n");
-				
-			}
-			sb.append("-------------------------------------------- \n");
-
-		}
-
-		return sb.toString();
-	}
-	
 
 	public boolean exit() {
 
@@ -220,7 +252,7 @@ public class Interface {
 
 		if (choice == 2 || choice == 5) {
 
-			System.out.println("Please enter the length of the boat: ");
+			System.out.println("Please enter the length of the boat in meters: ");
 			
 		}
 	}

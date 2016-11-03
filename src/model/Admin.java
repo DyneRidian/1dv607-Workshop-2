@@ -22,21 +22,25 @@ public class Admin {
 	
 	ArrayList<Member> memberStorage;
 	
+	/* when admin is called it initializes an array to hold all members and their 
+	 * information which will then be manipuluated by the user when they are executing functions in the program */
 	public Admin(){
 		memberStorage = new ArrayList<>();
 	}
 	
+	// returns the array which holds all members and their information
 	public ArrayList<Member> getMemberStorage(){
 		return memberStorage;
 	}
 	
+	// populates the memberStorage array by reading the text files in the resources folder
 	public void populate(){
 		//populating "memberStorage", "totalNumberOfMembers" and "total" for each boat.
 		//substring() are used to avoid getting category names from the text files.
 
 		try {
 			//getting total number of members
-			BufferedReader br = new BufferedReader(new FileReader("src/resources/generalInformation.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("resources/generalInformation.txt"));
 			Scanner line = new Scanner(br);
 			totalNumberOfMembers = Integer.parseInt(line.nextLine().substring(16));
 			totalNumberOfKayaks = Integer.parseInt(line.nextLine().substring(15));
@@ -49,7 +53,7 @@ public class Admin {
 			// Iterating over text files (each member is a text file) 
 			for (int i = 0; i < loopTimes; i++) {
 				
-				String path = "src/resources/" + Integer.toString(1 + i) + ".txt";
+				String path = "resources/" + Integer.toString(1 + i) + ".txt";
 				
 				File file = new File(path);
 				if(file.exists()){
@@ -98,11 +102,15 @@ public class Admin {
 		}
 	}
 
+	// addBoat will add a boat to a member specified by their ID
 	public void addBoat(String memberID, Boat boatType, String length) throws IOException{
 		
 		String boatID = null;
 		String newMemberBoats = null;
 		
+		/* searches the memberStorage array for the specified member ID then adds
+		 *  the boat to their list while giving the boat a unique ID for that user
+		 */
 		for(int i = 0; i < memberStorage.size(); i++){
 			
 			if(memberStorage.get(i).getMemberID().equals(memberID)){
@@ -116,11 +124,12 @@ public class Admin {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		String path = "src/resources/" + memberID +  ".txt";
+		String path = "resources/" + memberID +  ".txt";
 		
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		Scanner line = new Scanner(br);
 		
+		/* find the specified member's text file in resources and updates the information in there */
 		while(line.hasNextLine()){
 			String text = line.nextLine();
 			if(text.contains("numberOfBoats:")){
@@ -132,7 +141,8 @@ public class Admin {
 		
 		br.close();
 		line.close();
-	
+		
+		// add the new boat to the specified member's text file
 		sb.append("ID:" + boatID + "\r\n");
 		sb.append("type:" + boatType.type + "\r\n");
 		sb.append("length:" + length + "\r\n");
@@ -147,6 +157,7 @@ public class Admin {
 			e.printStackTrace();
 		}
 
+		// update fields in admin class if boat type matches them
 		if(boatType.type.equals("Kayak")){
 			
 			totalNumberOfKayaks++;
@@ -165,9 +176,39 @@ public class Admin {
 		}
 		
 		generalUpdate();
-		
 	}
 	
+	//help method for addBoat()
+	public void helpAddBoat(String boatRegisterID, int choice, String boatRegisterLength){
+		
+		try {
+		if (choice == 1) {
+			
+				addBoat(boatRegisterID, new Kayak(null, null), boatRegisterLength);
+			} 
+
+		 else if (choice == 2) {
+
+			addBoat(boatRegisterID, new SailBoat(null, null), boatRegisterLength);
+
+		} else if (choice == 3) {
+
+			addBoat(boatRegisterID, new MotorSailor(null, null), boatRegisterLength);
+
+		} else {
+
+			addBoat(boatRegisterID, new Other(null, null), boatRegisterLength);
+		}
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	
+	}
+	
+	/* helper method which updates the general information text file that 
+	 * contains number of members and boats. Used in multiple methods.
+	 */
 	private void generalUpdate(){
 		StringBuilder sb = new StringBuilder();
 		
@@ -181,7 +222,7 @@ public class Admin {
 		
 		Writer generalWriter;
 		try {
-			generalWriter = new BufferedWriter((new FileWriter("src/resources/generalInformation.txt")));
+			generalWriter = new BufferedWriter((new FileWriter("resources/generalInformation.txt")));
 			generalWriter.write(sb.toString());
 			generalWriter.close();
 		} catch (IOException e) {
@@ -189,15 +230,18 @@ public class Admin {
 		}
 	}
 	
+	/* addMember method creates a new text file and gives the member a 
+	 * unique ID also updates memberStorage array to include newly added member */
 	public void addMember(String name, String personalNumber){
 		
 		String ID = null;
 		String path = null;
 		File file = null;;
 		
+		// find available ID number for new member
 		for(int i = 1; i > 0; i++){
 			
-			path = "src/resources/" + i +  ".txt";
+			path = "resources/" + i +  ".txt";
 			file = new File(path);		
 			if(!file.exists()){
 				ID = Integer.toString(i);
@@ -206,12 +250,15 @@ public class Admin {
 			
 		}
 		
+		// add new member to the memberStorage array
 		Member newMember = new Member(name, ID, personalNumber, "0");
 		
 		memberStorage.add(newMember);
 		
 		totalNumberOfMembers++;
 		
+		
+		/* write new text file to resources folder with new member's information */
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Name:" + name + "\r\n");
@@ -238,6 +285,7 @@ public class Admin {
 		return totalNumberOfMembers;
 	}
 	
+	// method to delete a member's textfile from the resources folder and also remove them from memberStorage array
 	public void deleteMember(String memberID){
 		
 		for(int i = 0; i < memberStorage.size(); i++){
@@ -278,7 +326,7 @@ public class Admin {
 			
 		}
 		
-		String path = "src/resources/" + memberID +  ".txt";
+		String path = "resources/" + memberID +  ".txt";
 		
 		File file = new File(path);
 		
@@ -292,8 +340,48 @@ public class Admin {
 		
 	}
 	
-	public void changeBoat(String memberID, String boatID, String length) {
+	// looks through the memberStorage array and gathers neccessary information for the list, returns a string of all this information
+	public String verboseList(){
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < memberStorage.size(); i++){
+			
+			sb.append("Name: " + memberStorage.get(i).getName() + "\n");
+			sb.append("Personal Number: " + memberStorage.get(i).getPersonalNumber() + "\n");
+			sb.append("Member ID: " + memberStorage.get(i).getMemberID() + "\n");
+			for(int j = 0; j < memberStorage.get(i).getBoatList().size(); j++){
+				
+				sb.append("Boat Type: " + memberStorage.get(i).getBoatList().get(j).boatType() + "\n");
+				sb.append("Boat Length: " + memberStorage.get(i).getBoatList().get(j).length + "\n");
+				
+			}
+			sb.append("-------------------------------------------- \n");
 
+		}
+
+		return sb.toString();
+	}
+
+	// looks through the memberStorage array and gathers neccessary information for the list, returns a string of all this information
+	public String compactList() {
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < memberStorage.size(); i++) {
+
+			sb.append("Name: " + memberStorage.get(i).getName() + "\n");
+			sb.append("Member ID: " + memberStorage.get(i).getMemberID() + "\n");
+			sb.append("Number of Boats: " + memberStorage.get(i).getNumberOfBoats() + "\n");
+			sb.append("-------------------------------------------- \n");
+
+		}
+
+		return sb.toString();
+	}
+	
+	// method to change boat length in the member's textfile and storage array
+	public void changeBoat(String memberID, String boatID, String length) {
+		
+		// searches memberStorage array for member ID specified then changes specified boats length
 		for (int i = 0; i < memberStorage.size(); i++) {
 
 			if (memberStorage.get(i).getMemberID().equals(memberID)) {
@@ -311,9 +399,11 @@ public class Admin {
 				}
 				
 			}
+			
+			// updates the boats length in the specified members textfile.
 			try {
 
-				String path = "src/resources/" + memberID + ".txt";
+				String path = "resources/" + memberID + ".txt";
 
 				File inFile = new File(path);
 
@@ -366,10 +456,12 @@ public class Admin {
 		}
 	}
 
+	// remove boat from memberStorage array and from specified member's textfile
 	public void deleteBoat(String memberID, String boatID) {
 
 		String updateBoats = null;
 		
+		// searches memberStorage array for member then removes specified boat that matches boat ID
 		for (int i = 0; i < memberStorage.size(); i++) {
 
 			if (memberStorage.get(i).getMemberID().equals(memberID)) {
@@ -407,9 +499,10 @@ public class Admin {
 					
 				}
 				
+				// looks for member's textfile then carefully deletes neccessary lines that relate to specified boat
 				try {
 
-					String path = "src/resources/" + memberID + ".txt";
+					String path = "resources/" + memberID + ".txt";
 
 					File inFile = new File(path);
 

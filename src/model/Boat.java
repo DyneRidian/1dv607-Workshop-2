@@ -4,7 +4,11 @@ public abstract class Boat {
 
 	protected String type;
 	protected String ID;
-	public String length;
+	protected String length;
 	
-	public abstract String boatType();
+	abstract String boatType();
+	
+	public String getID(){
+		return ID;
+	}
 }

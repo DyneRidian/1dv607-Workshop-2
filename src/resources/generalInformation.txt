@@ -1,5 +1,0 @@
-numberOfMembers:4
-numberOfKayaks:3
-numberOfSailboats:3
-numberOfMotorSailor:3
-numberOtherBoatTypes:2
