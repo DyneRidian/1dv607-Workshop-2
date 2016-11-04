@@ -116,7 +116,7 @@ public class Admin {
 			if(memberStorage.get(i).getMemberID().equals(memberID)){
 				
 				memberStorage.get(i).addBoat(boatType, length);
-				boatID = memberStorage.get(i).getBoatList().get(memberStorage.get(i).boatList.size()-1).ID;
+				boatID = memberStorage.get(i).getBoatList().get(memberStorage.get(i).boatList.size()-1).getID();
 				newMemberBoats = memberStorage.get(i).getNumberOfBoats();
 				
 			}
@@ -144,7 +144,7 @@ public class Admin {
 		
 		// add the new boat to the specified member's text file
 		sb.append("ID:" + boatID + "\r\n");
-		sb.append("type:" + boatType.type + "\r\n");
+		sb.append("type:" + boatType.getType() + "\r\n");
 		sb.append("length:" + length + "\r\n");
 		sb.append("------------------------" + "\r\n");
 		
@@ -158,19 +158,19 @@ public class Admin {
 		}
 
 		// update fields in admin class if boat type matches them
-		if(boatType.type.equals("Kayak")){
+		if(boatType.getType().equals("Kayak")){
 			
 			totalNumberOfKayaks++;
 		}
-		else if(boatType.type.equals("SailBoat")){
+		else if(boatType.getType().equals("SailBoat")){
 			
 			totalNumberOfSailBoats++;
 		}
-		else if(boatType.type.equals("MotorSailor")){
+		else if(boatType.getType().equals("MotorSailor")){
 			
 			totalNumberOfMotorSailor++;
 		}
-		else if(boatType.type.equals("Other")){
+		else if(boatType.getType().equals("Other")){
 			
 			totalNumberOfOtherBoats++;
 		}
@@ -298,22 +298,22 @@ public class Admin {
 				
 				for(int j = 0; j < deletedMember.getBoatList().size(); j++){
 					
-					if(deletedMember.getBoatList().get(j).type.equals("Kayak")){
+					if(deletedMember.getBoatList().get(j).getType().equals("Kayak")){
 						
 						totalNumberOfKayaks--;
 						
 					}
-					else if(deletedMember.getBoatList().get(j).type.equals("MotorSailor")){
+					else if(deletedMember.getBoatList().get(j).getType().equals("MotorSailor")){
 											
 						totalNumberOfMotorSailor--;
 											
 					}
-					else if(deletedMember.getBoatList().get(j).type.equals("SailBoat")){
+					else if(deletedMember.getBoatList().get(j).getType().equals("SailBoat")){
 						
 						totalNumberOfSailBoats--;
 						
 					}
-					else if(deletedMember.getBoatList().get(j).type.equals("Other")){
+					else if(deletedMember.getBoatList().get(j).getType().equals("Other")){
 						
 						totalNumberOfOtherBoats--;
 						
@@ -339,45 +339,6 @@ public class Admin {
 		generalUpdate();
 		
 	}
-	
-	// looks through the memberStorage array and gathers neccessary information for the list, returns a string of all this information
-	public String verboseList(){
-		
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < memberStorage.size(); i++){
-			
-			sb.append("Name: " + memberStorage.get(i).getName() + "\n");
-			sb.append("Personal Number: " + memberStorage.get(i).getPersonalNumber() + "\n");
-			sb.append("Member ID: " + memberStorage.get(i).getMemberID() + "\n");
-			for(int j = 0; j < memberStorage.get(i).getBoatList().size(); j++){
-				
-				sb.append("Boat Type: " + memberStorage.get(i).getBoatList().get(j).boatType() + "\n");
-				sb.append("Boat Length: " + memberStorage.get(i).getBoatList().get(j).length + "\n");
-				
-			}
-			sb.append("-------------------------------------------- \n");
-
-		}
-
-		return sb.toString();
-	}
-
-	// looks through the memberStorage array and gathers neccessary information for the list, returns a string of all this information
-	public String compactList() {
-
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < memberStorage.size(); i++) {
-
-			sb.append("Name: " + memberStorage.get(i).getName() + "\n");
-			sb.append("Member ID: " + memberStorage.get(i).getMemberID() + "\n");
-			sb.append("Number of Boats: " + memberStorage.get(i).getNumberOfBoats() + "\n");
-			sb.append("-------------------------------------------- \n");
-
-		}
-
-		return sb.toString();
-	}
-	
 	// method to change boat length in the member's textfile and storage array
 	public void changeBoat(String memberID, String boatID, String length) {
 		
@@ -390,9 +351,9 @@ public class Admin {
 
 				for (int j = 0; j < selectedMember.getBoatList().size(); j++){
 					
-					if (selectedMember.getBoatList().get(j).ID.equals(boatID)){
+					if (selectedMember.getBoatList().get(j).getID().equals(boatID)){
 						
-						selectedMember.getBoatList().get(j).length = length;
+						selectedMember.getBoatList().get(j).setLength(length);
 						
 					}
 					
@@ -470,21 +431,21 @@ public class Admin {
 
 				for (int j = 0; j < selectedMember.getBoatList().size(); j++) {
 
-					if (selectedMember.getBoatList().get(j).ID.equals(boatID)) {
+					if (selectedMember.getBoatList().get(j).getID().equals(boatID)) {
 
-						if (selectedMember.getBoatList().get(j).type.equals("Kayak")) {
+						if (selectedMember.getBoatList().get(j).getType().equals("Kayak")) {
 
 							totalNumberOfKayaks--;
 
-						} else if (selectedMember.getBoatList().get(j).type.equals("MotorSailor")) {
+						} else if (selectedMember.getBoatList().get(j).getType().equals("MotorSailor")) {
 
 							totalNumberOfMotorSailor--;
 
-						} else if (selectedMember.getBoatList().get(j).type.equals("SailBoat")) {
+						} else if (selectedMember.getBoatList().get(j).getType().equals("SailBoat")) {
 
 							totalNumberOfSailBoats--;
 
-						} else if (selectedMember.getBoatList().get(j).type.equals("Other")) {
+						} else if (selectedMember.getBoatList().get(j).getType().equals("Other")) {
 
 							totalNumberOfOtherBoats--;
 

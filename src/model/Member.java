@@ -40,16 +40,16 @@ public class Member {
 		will assign an ID that is not in use to the newly added boat */
 	public void addBoat(Boat boat, String length){
 		
-		boat.length = length;
+		boat.setLength(length);
 		
 		if(boatList.size() != 0){
 			
-			boat.ID = Integer.toString(Integer.parseInt(boatList.get(boatList.size()-1).ID)+1);
+			boat.setID(Integer.toString(Integer.parseInt(boatList.get(boatList.size()-1).getID())+1));
 			
 		}
 		else{
 			
-			boat.ID = "1";
+			boat.setID("1");
 		}
 			
 		boatList.add(boat);

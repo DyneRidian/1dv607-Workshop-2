@@ -42,7 +42,7 @@ public class User {
 				
 				//checking if there is a member with the ID
 				boolean IDFound = false;
-				for(int i=0; i < admin.getMemberStorage().size();i++, System.out.println("asd") )
+				for(int i=0; i < admin.getMemberStorage().size();i++)
 				{
 					if(admin.getMemberStorage().get(i).getMemberID().equals(boatRegisterID)){
 					IDFound = true;

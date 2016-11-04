@@ -30,7 +30,7 @@ public class Interface {
 	public void collectEvents(int input) {
 		choice = input;
 	}
-	
+
 	public void succesful(model.Admin a) {
 
 		if (choice == 1) {
@@ -56,12 +56,13 @@ public class Interface {
 
 		}
 	}
+
 	public void errorFormat(model.Admin a) {
-		
+
 		if (choice == 1) {
-			
+
 			System.out.println();
-			System.out.println("\n *The new member could not be added.*" );
+			System.out.println("\n *The new member could not be added.*");
 			System.out.println("*Only NUMBERS are allowed in personal numbers!*");
 
 		} else if (choice == 2) {
@@ -78,54 +79,56 @@ public class Interface {
 
 		}
 	}
-		//errors for Member id
-		public void errorMemberIdNotFound(model.Admin a) {
-			
-			if (choice == 2) {
 
-				System.out.println();
-				System.out.println("\n *The new boat could not be registered.*");
-				System.out.println("*Could not find any members with that ID!*");
-			}
-				
-				else if (choice == 3) {
+	// errors for Member id
+	public void errorMemberIdNotFound(model.Admin a) {
 
-					System.out.println();
-					System.out.println("\n *The member could not be deleted.*");
-					System.out.println("*Could not find any member with that ID!*");
+		if (choice == 2) {
 
-				} else if (choice == 4) {
-
-					System.out.println();
-					System.out.println("\n *The boat could not be deleted.*");
-					System.out.println("*Could not find any member with that ID!*");
-
-				}
-
-			 else if (choice == 5) {
-				System.out.println();
-				System.out.println("\n *The boat data could not be changed.*");
-				System.out.println("*Could not find any member with that ID!*");
-
-			}
+			System.out.println();
+			System.out.println("\n *The new boat could not be registered.*");
+			System.out.println("*Could not find any members with that ID!*");
 		}
-			//errors for Boat id
-			public void errorBoatIdNotFound(model.Admin a) {
-				
-				 if (choice == 4) {
 
-					System.out.println();
-					System.out.println("\n *The boat could not be deleted.*");
-					System.out.println("*Could not find any boat with that ID!*");
+		else if (choice == 3) {
 
-				}else if (choice == 5) {
+			System.out.println();
+			System.out.println("\n *The member could not be deleted.*");
+			System.out.println("*Could not find any member with that ID!*");
 
-					System.out.println();
-					System.out.println("\n *The boat data could not be changed*");
-					System.out.println("*Could not find any boat with that ID!*");
+		} else if (choice == 4) {
 
-				}
-		
+			System.out.println();
+			System.out.println("\n *The boat could not be deleted.*");
+			System.out.println("*Could not find any member with that ID!*");
+
+		}
+
+		else if (choice == 5) {
+			System.out.println();
+			System.out.println("\n *The boat data could not be changed.*");
+			System.out.println("*Could not find any member with that ID!*");
+
+		}
+	}
+
+	// errors for Boat id
+	public void errorBoatIdNotFound(model.Admin a) {
+
+		if (choice == 4) {
+
+			System.out.println();
+			System.out.println("\n *The boat could not be deleted.*");
+			System.out.println("*Could not find any boat with that ID!*");
+
+		} else if (choice == 5) {
+
+			System.out.println();
+			System.out.println("\n *The boat data could not be changed*");
+			System.out.println("*Could not find any boat with that ID!*");
+
+		}
+
 	}
 
 	public boolean addMember() throws IOException {
@@ -190,7 +193,7 @@ public class Interface {
 		return false;
 
 	}
-	
+
 	public boolean changeBoatInfo() {
 
 		if (choice == 5) {
@@ -199,16 +202,31 @@ public class Interface {
 
 			return true;
 		}
-		
+
 		return false;
 
+	}
+
+	private String compactList(model.Admin a) {
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < a.getMemberStorage().size(); i++) {
+
+			sb.append("Name: " + a.getMemberStorage().get(i).getName() + "\n");
+			sb.append("Member ID: " + a.getMemberStorage().get(i).getMemberID() + "\n");
+			sb.append("Number of Boats: " + a.getMemberStorage().get(i).getNumberOfBoats() + "\n");
+			sb.append("-------------------------------------------- \n");
+
+		}
+
+		return sb.toString();
 	}
 
 	public boolean printCompactList(model.Admin a) {
 
 		if (choice == 6) {
 
-			System.out.println("\n" + a.compactList());
+			System.out.println("\n" + compactList(a));
 			return true;
 
 		}
@@ -216,11 +234,29 @@ public class Interface {
 		return false;
 	}
 
+	private String verboseList(model.Admin a) {
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < a.getMemberStorage().size(); i++) {
+
+			sb.append("Name: " + a.getMemberStorage().get(i).getName() + "\n");
+			sb.append("Personal Number: " + a.getMemberStorage().get(i).getPersonalNumber() + "\n");
+			sb.append("Member ID: " + a.getMemberStorage().get(i).getMemberID() + "\n");
+			for (int j = 0; j < a.getMemberStorage().get(i).getBoatList().size(); j++) {
+
+				sb.append("Boat Type: " + a.getMemberStorage().get(i).getBoatList().get(j).getType() + "\n");
+				sb.append("Boat Length: " + a.getMemberStorage().get(i).getBoatList().get(j).getLength() + "\n");
+			}
+			sb.append("-------------------------------------------- \n");
+		}
+		return sb.toString();
+	}
+
 	public boolean printVerboseList(model.Admin a) {
 
 		if (choice == 7) {
 
-			System.out.println("\n" + a.verboseList());
+			System.out.println("\n" + verboseList(a));
 			return true;
 		}
 
@@ -253,26 +289,26 @@ public class Interface {
 		if (choice == 2 || choice == 5) {
 
 			System.out.println("Please enter the length of the boat in meters: ");
-			
+
 		}
 	}
-	
-	public void ID(){
-		
-		if(choice == 1){
-			
+
+	public void ID() {
+
+		if (choice == 1) {
+
 			System.out.println("Please enter the member's Personal Number: ");
-			
-		} else if(choice == 4){
-			
+
+		} else if (choice == 4) {
+
 			System.out.println("Please enter the ID of the boat you wish to delete: ");
-			
-		} else if(choice == 5){
-			
+
+		} else if (choice == 5) {
+
 			System.out.println("Please enter the ID of the boat you wish to change: ");
-			
+
 		}
-		
+
 	}
-	
+
 }
